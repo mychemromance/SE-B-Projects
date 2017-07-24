@@ -1,7 +1,6 @@
 // PinnacleClub.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include<iostream>
 #include<string>
 using namespace std;
@@ -20,10 +19,11 @@ public:
 	void newSecretary();
 	void newMember();
 	void findMember();
+	void displayMember();
 };
 
 //these are global variables
-//Pres and Sec are analogous to heada and tail node
+//Pres and Sec are analogous to head and tail node
 member *Pres = NULL;
 member *Sec = NULL;
 int num = 0; //num stores the total number of members
@@ -71,8 +71,58 @@ void member::newSecretary()
 	cin >> newSec->name;
 	if (noSec())
 	{
-
+		member *temp = Pres;
+		while(temp->link != NULL)
+		{
+			temp = temp->link;
+		}
+		Sec = newSec;
+		temp->link = Sec;
 	}
+else
+{
+Sec->link = newSec;
+Sec = newSec;
+}
+return;
+}
+
+void member::newMember()
+{
+member *newM = getMember();
+cout<<"Enter the name of the new member: ";
+cin>>newM->name;
+member *t = Pres;
+t = t->link;
+Pres->link = newM;
+newM->link = t;
+}
+
+void member::findMember()
+{
+if(noPres())
+{
+cout<<"Club is empty.\n";
+return;
+}
+string n;
+cout<<"Enter the member you wish to find: ";
+cin>>n;
+member *t = Pres;
+while(t != NULL)
+{
+if(t->name == n)
+{
+if(t == Pres)
+{
+cout<<"The member "<<n<<" is the President\n';
+}
+else if(t == Sec)
+{
+cout<<"The member "<<n<<" is the Secretary\n';
+}
+}
+}
 }
 
 void member::mem()
@@ -81,9 +131,8 @@ void member::mem()
 	{
 		cout << "The club was empty, now creating a President...\n";
 		newPresident();
-		return;
 	}
-	else if (noSec())
+	if (noSec())
 	{
 		cout << "The club was missing a Secretary, elect one....\n";
 		newSecretary();
@@ -119,10 +168,67 @@ void member::mem()
 		}
 		}
 	}
+return;
+}
+
+void member::displayMember()
+{
+member *temp = Pres;
+if(noPres())
+{
+cout<<"The club is empty... Add some members\n";
+return;
+}
+while(temp!=NULL)
+{
+if(temp == Pres)
+{
+cout<<"The President: "<<temp->name<<endl;
+}
+else if(temp == Sec)
+{
+cout<<"The Secretary: "<<temp->name<<endl;
+}
+else
+{
+cout<<temp->name<<endl;
+}
+temp = temp->link;
+}
+cout<<endl;
+return;
 }
 
 int main()
 {
-
+Pres->mem();
+int c;
+for(; ;)
+{
+cout<<"Enter 1 to add a member to the club\nEnter 2 to display the club\n";
+cin>>c;
+switch(c)
+{
+case 0:
+{
+return 0;
 }
-
+case 1:
+{
+Pres->mem();
+break;
+}
+case 2:
+{
+Pres->displayMember();
+break;
+}
+default:
+{
+cout<<"Invalid input\n";
+break;
+}
+}
+}
+return 0;
+}
