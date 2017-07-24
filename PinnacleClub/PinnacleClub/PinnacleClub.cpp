@@ -8,6 +8,7 @@ using namespace std;
 class member
 {
 	string name;
+	int prn;
 	member *link;
 
 public:
@@ -20,6 +21,7 @@ public:
 	void newMember();
 	void findMember();
 	void displayMember();
+void revDisplay(member *head);
 };
 
 //these are global variables
@@ -50,6 +52,8 @@ void member::newPresident()
 	member *newPres = getMember();
 	cout << "Enter the name of the President...\n";
 	cin >> newPres->name;
+	cout<<"Enter the PR number of the member...\n";
+	cin>>prn;
 	if (noPres())
 	{
 		newPres->link = Sec;
@@ -108,11 +112,6 @@ return;
 
 void member::findMember()
 {
-if(noPres())
-{
-cout<<"Club is empty.\n";
-return;
-}
 string n;
 cout<<"Enter the member you wish to find: ";
 cin>>n;
@@ -130,10 +129,14 @@ else if(t == Sec)
 {
 cout<<"The member "<<n<<" is the Secretary\n";
 }
+else
+{
 cout<<"The member was found at the "<<y<<"position"<<endl;
+}
 break;
 }
 y+=1;
+t=t->link;
 }
 }
 
@@ -211,13 +214,23 @@ cout<<endl;
 return;
 }
 
+void member::revDisplay(member *head)
+{
+if (head == NULL)
+	return;
+
+revDisplay(head->link);
+cout<<head->name<<endl;
+}
+
+
 int main()
 {
 Pres->mem();
 int c;
 for(; ;)
 {
-cout<<"Enter 1 to add a member to the club\nEnter 2 to display the club\n";
+cout<<"Enter 1 to add a member to the club\nEnter 2 to display the club\nEnter 3 to find a member\nEnter 4 to display the club in the reverse order\nEnter 0 to quit\n";
 cin>>c;
 switch(c)
 {
@@ -233,6 +246,16 @@ break;
 case 2:
 {
 Pres->displayMember();
+break;
+}
+case 3:
+{
+Pres->findMember();
+break;
+}
+case 4:
+{
+Pres->revDisplay(Pres);
 break;
 }
 default:
