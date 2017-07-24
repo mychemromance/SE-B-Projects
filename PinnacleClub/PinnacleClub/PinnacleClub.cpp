@@ -84,18 +84,26 @@ else
 Sec->link = newSec;
 Sec = newSec;
 }
+num+=1;
 return;
 }
 
 void member::newMember()
 {
+if(noPres())
+{
+cout<<"The club is empty.";
+return;
+}
 member *newM = getMember();
 cout<<"Enter the name of the new member: ";
 cin>>newM->name;
 member *t = Pres;
 t = t->link;
-Pres->link = newM;
 newM->link = t;
+Pres->link = newM;
+num+=1;
+return;
 }
 
 void member::findMember()
@@ -109,19 +117,23 @@ string n;
 cout<<"Enter the member you wish to find: ";
 cin>>n;
 member *t = Pres;
+int y = 1;
 while(t != NULL)
 {
 if(t->name == n)
 {
 if(t == Pres)
 {
-cout<<"The member "<<n<<" is the President\n';
+cout<<"The member "<<n<<" is the President\n";
 }
 else if(t == Sec)
 {
-cout<<"The member "<<n<<" is the Secretary\n';
+cout<<"The member "<<n<<" is the Secretary\n";
 }
+cout<<"The member was found at the "<<y<<"position"<<endl;
+break;
 }
+y+=1;
 }
 }
 
