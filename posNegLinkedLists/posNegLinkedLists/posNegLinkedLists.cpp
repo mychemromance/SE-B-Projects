@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include<process.h>
 #include<iostream>
 using namespace std;
 
@@ -18,9 +19,11 @@ class list
 
 public:
 
-	list()
+	list(int y = 1)
 	{
 		head = NULL;
+		if(y == 1)
+			work();
 	}
 
 	bool isEmpty()
@@ -46,14 +49,61 @@ public:
 			{
 				t = t->next;
 			}
-			t->next = NULL;
+			t->next = temp;
 		}
 		return;
+	}
+
+	void display()
+	{
+		if (isEmpty())
+		{
+			cout << "The list of numbers is empty\nPlease enter some numbers and retry\n";
+		}
+		else
+		{
+			node *t = head;
+			while (t != NULL)
+			{
+				cout << t->x << " ";
+				t = t->next;
+			}
+		}
+		return;
+	}
+
+	void work()
+	{
+		int c = 1;
+		while (c != 0)
+		{
+			cout << "Enter 1 to append a number\nEnter 2 to display the list\nEnter 0 to exit\n";
+			cin >> c;
+			switch (c)
+			{
+			case 1:
+				append();
+				break;
+
+			case 2:
+				display();
+				break;
+
+			default:
+				cout << "Invalid input.\n";
+				break;
+			
+			case 0:
+				return;
+			}
+		}
 	}
 };
 
 int main()
 {
+	list common;
+	list pos(0); list neg(0);
     return 0;
 }
 
