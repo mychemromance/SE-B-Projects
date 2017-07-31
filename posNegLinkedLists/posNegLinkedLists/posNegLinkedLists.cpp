@@ -8,6 +8,9 @@ using namespace std;
 
 class list
 {
+public:
+	//random change
+
 	class node
 	{
 	public:
@@ -16,8 +19,6 @@ class list
 	};
 
 	node *head;
-
-public:
 
 	list(int y = 1)
 	{
@@ -72,12 +73,36 @@ public:
 		return;
 	}
 
+	void removeNegatives()
+	{
+		node *curr = head;
+		node *temp = NULL;
+		node *temp1 = NULL;
+
+		if (temp->x < 0)
+		{
+			temp1 = temp;
+			temp = temp->next;
+			delete temp1;
+		}
+		for (temp = head; temp->next != NULL; temp = temp->next)
+		{
+			if (temp->next->x < 0)
+			{
+				temp1 = temp->next;
+				temp->next = temp1->next;
+				delete temp;
+			}
+		}
+		return;
+	}
+
 	void work()
 	{
 		int c = 1;
 		while (c != 0)
 		{
-			cout << "Enter 1 to append a number\nEnter 2 to display the list\nEnter 0 to exit\n";
+			cout << "Enter 1 to append a number\nEnter 2 to display the list\nEnter 3 to remove negatives from the original list\nEnter 0 to exit\n";
 			cin >> c;
 			switch (c)
 			{
@@ -89,6 +114,10 @@ public:
 				display();
 				break;
 
+			case 3:
+				removeNegatives();
+				break;
+
 			default:
 				cout << "Invalid input.\n";
 				break;
@@ -97,6 +126,7 @@ public:
 				return;
 			}
 		}
+		return;
 	}
 };
 
