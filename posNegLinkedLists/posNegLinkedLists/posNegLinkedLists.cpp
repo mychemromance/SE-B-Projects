@@ -6,18 +6,17 @@
 #include<iostream>
 using namespace std;
 
+
+class node
+{
+public:
+	int x;
+	node *next;
+};
+
 class list
 {
 public:
-	//random change
-
-	class node
-	{
-	public:
-		int x;
-		node *next;
-	};
-
 	node *head;
 
 	list(int y = 1)
@@ -70,6 +69,7 @@ public:
 				t = t->next;
 			}
 		}
+		cout << endl;
 		return;
 	}
 
