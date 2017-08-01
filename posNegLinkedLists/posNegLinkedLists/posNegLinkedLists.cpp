@@ -75,25 +75,35 @@ public:
 
 	void removeNegatives()
 	{
-		node *curr = head;
-		node *temp = NULL;
-		node *temp1 = NULL;
+		node *curr = head; //current node
+		node *prev = NULL; //previous node
+		node *tmp; //used to delete a node
 
-		if (temp->x < 0)
+		while (curr != NULL)
 		{
-			temp1 = temp;
-			temp = temp->next;
-			delete temp1;
-		}
-		for (temp = head; temp->next != NULL; temp = temp->next)
-		{
-			if (temp->next->x < 0)
+			if (curr->x < 0)
 			{
-				temp1 = temp->next;
-				temp->next = temp1->next;
-				delete temp;
+				if (prev != NULL)
+				{
+					prev->next = curr->next;
+				}
+				else
+				{
+					head = curr->next;
+				}
+				tmp = curr;
+				curr = curr->next;
+				delete tmp;
+			}
+			else
+			{
+				prev = curr;
+				curr = curr->next;
 			}
 		}
+		cout << "The negative nodes have been deleted.\n";
+		cout << "The new linked list is as follows: ";
+		display();
 		return;
 	}
 
