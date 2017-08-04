@@ -33,7 +33,7 @@ public:
 		}
 		catch (int a)
 		{
-			cout << "Exceptional age!\n";
+			cout << "Invalid criteria!\n";
 		}
 		return;
 	}
@@ -51,7 +51,7 @@ public:
 		}
 		catch (int in)
 		{
-			cout << "Exceptional income!\n";
+			cout << "Invalid criteria!\n";
 		}
 		return;
 	}
@@ -67,7 +67,7 @@ public:
 		}
 		catch (int v)
 		{
-			cout << "Exceptional vehicle!\n";
+			cout << "Invalid criteria!\n";
 		}
 		return;
 	}
@@ -83,7 +83,7 @@ public:
 		}
 		catch (string c)
 		{
-			cout << "Exceptional city!\n";
+			cout << "Invalid criteria!\n";
 		}
 		return;
 	}
