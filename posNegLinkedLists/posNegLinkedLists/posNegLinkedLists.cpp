@@ -1,149 +1,154 @@
-// posNegLinkedLists.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
-#include<process.h>
+#include"stdafx.h"
 #include<iostream>
 using namespace std;
 
-
-class node
+struct node
 {
-public:
 	int x;
 	node *next;
 };
 
-class list
+class lists
 {
 public:
-	node *head;
+	node *head, *pHead, *nHead; //head pointers for the three lists
 
-	list(int y = 1)
+	lists() //the default constructor
 	{
-		head = NULL;
-		if(y == 1)
-			work();
+		head = pHead = nHead = NULL;
+		driver();
 	}
 
-	bool isEmpty()
-	{
-		return(head == NULL);
-	}
+	void driver();
+	void append();
+	void display(node *);
+	//node* stripNegatives(node *);
+	void sort();
+	void split();
+	void merge();
+};
 
-	void append()
+void lists::append()
+{
+	node *newNode = new node;
+	cout << "Enter the number: ";
+	cin >> newNode->x;
+	newNode->next = NULL;
+	if (head == NULL)
+		head = newNode;
+	else
 	{
-		node *temp;
-		temp = new node;
-		cout << "Enter the element\n";
-		cin >> temp->x;
-		temp->next = NULL;
-		if (isEmpty())
+		node *t = head;
+		while (t->next != NULL)
 		{
-			head = temp;
+			t = t->next;
 		}
-		else
-		{
-			node *t = head;
-			while (t->next != NULL)
-			{
-				t = t->next;
-			}
-			t->next = temp;
-		}
-		return;
+		t->next = newNode;
 	}
+	return;
+}
 
-	void display()
+void lists::display(node *h)
+{
+	node *t = h;
+	if (t == NULL)
+		cout << " is empty.\n";
+	else
 	{
-		if (isEmpty())
+		while (t != NULL)
 		{
-			cout << "The list of numbers is empty\nPlease enter some numbers and retry\n";
-		}
-		else
-		{
-			node *t = head;
-			while (t != NULL)
-			{
-				cout << t->x << " ";
-				t = t->next;
-			}
+			cout << t->x << " ";
+			t = t->next;
 		}
 		cout << endl;
-		return;
 	}
+	return;
+}
 
-	void removeNegatives()
+/*node* lists::stripNegatives(node *H)
+{
+	node *pos, *h = H;
+	pos = NULL;
+	node *newNode = new node;
+	newNode->next = NULL;
+	while (h != NULL)
 	{
-		node *curr = head; //current node
-		node *prev = NULL; //previous node
-		node *tmp; //used to delete a node
-
-		while (curr != NULL)
+		if (h->x >= 0)
 		{
-			if (curr->x < 0)
+			newNode->x = h->x;
+
+			if (pos == NULL)
 			{
-				if (prev != NULL)
-				{
-					prev->next = curr->next;
-				}
-				else
-				{
-					head = curr->next;
-				}
-				tmp = curr;
-				curr = curr->next;
-				delete tmp;
+				pos = newNode;
 			}
 			else
 			{
-				prev = curr;
-				curr = curr->next;
+				node *t = pos;
+				while (t->next != NULL)
+				{
+					t = t->next;
+				}
+				t->next = newNode;
 			}
 		}
-		cout << "The negative nodes have been deleted.\n";
-		cout << "The new linked list is as follows: ";
-		display();
-		return;
+		h = h->next;
 	}
+	return pos;
+}
+*/
 
-	void work()
+void lists::sort()
+{
+
+}
+
+void lists::split()
+{
+
+}
+
+void lists::merge()
+{
+
+}
+
+void lists::driver()
+{
+	int con = 1;
+	while (con != 0)
 	{
-		int c = 1;
-		while (c != 0)
+		cout << "Enter 1 to enter numbers into the raw list\n";
+		cout << "Enter 2 to display the raw list\n";
+		cout << "Enter 3 to remove the negative numbers from the raw list\n";
+		cout << "Enter 0 to quit\n";
+		cin >> con;
+		switch (con)
 		{
-			cout << "Enter 1 to append a number\nEnter 2 to display the list\nEnter 3 to remove negatives from the original list\nEnter 0 to exit\n";
-			cin >> c;
-			switch (c)
-			{
-			case 1:
-				append();
-				break;
+		case 1:
+			append();
+			break;
 
-			case 2:
-				display();
-				break;
+		case 2:
+			display(head);
+			break;
 
-			case 3:
-				removeNegatives();
-				break;
+		case 3:
+			head = stripNegatives(head);
+			break;
 
-			default:
-				cout << "Invalid input.\n";
-				break;
-			
-			case 0:
-				return;
-			}
+		case 0:
+			break;
+
+		default:
+			cout << "Invalid input\n";
+			break;
 		}
-		return;
 	}
-};
+	return;
+}
 
 int main()
 {
-	list common;
-	list pos(0); list neg(0);
-    return 0;
+	lists l;
+	return 0;
 }
-
