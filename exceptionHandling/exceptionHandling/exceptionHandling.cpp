@@ -15,6 +15,9 @@ public:
 	person()
 	{
 		validAge();
+		validIn();
+		validVehi();
+		validCity();
 	}
 
 	void validAge()
@@ -55,13 +58,40 @@ public:
 
 	void validVehi()
 	{
+		cout << "Enter; 2 for a two-Wheeler, 4 for a four-wheeler, 0 if none: ";
+		try
+		{
+			cin >> vehicle;
+			if (vehicle != 4)
+				throw vehicle;
+		}
+		catch (int v)
+		{
+			cout << "Exceptional vehicle!\n";
+		}
+		return;
+	}
 
+	void validCity()
+	{
+		cout << "Enter the name of the city: ";
+		try
+		{
+			cin >> city;
+			if (city != "Pune")
+				throw city;
+		}
+		catch (string c)
+		{
+			cout << "Exceptional city!\n";
+		}
+		return;
 	}
 };
 
 int main()
 {
-
+	person sudo;
     return 0;
 }
 
