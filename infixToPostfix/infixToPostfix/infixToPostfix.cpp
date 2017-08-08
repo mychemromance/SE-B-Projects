@@ -81,14 +81,24 @@ void toPostfix(string infix, char postfix[])
 		s.pop();
 	}
 	postfix[k] = 0;
-	cout << postfix;
+	cout << postfix << endl;
+	return;
 }
 int main()
 {
 	string infix;
 	char postfix[50];
-	cin >> infix;
-	toPostfix(infix, postfix);
+	int x = 1;
+	while (x == 1)
+	{
+		cout <<"Enter the infix expression: ";
+		cin >> infix;
+		cout << "The postfix expression is: ";
+		toPostfix(infix, postfix);
+		cout << endl << "Enter another expression? 1 or 0: ";
+		cin >> x;
+		cout << endl;
+	}
     return 0;
 }
 
