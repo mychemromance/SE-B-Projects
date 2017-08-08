@@ -14,7 +14,7 @@ void postfixEvaluate(string s)
 	char t, op1, op2;
 	int i = 0, val, res;
 	t = s[i];
-	bool opnd; //true if operand, false if operator
+	bool opnd = true; //true if operand, false if operator
 	while (t != '\0')
 	{
 		if (t >= '0' && t <= '9')
