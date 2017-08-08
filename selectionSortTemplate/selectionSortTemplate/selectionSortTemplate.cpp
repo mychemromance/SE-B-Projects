@@ -6,15 +6,17 @@
 #include<iostream>
 using namespace std;
 
-void swap(int *x, int *y) //swap by reference
+template<typename T>
+void swap(T *x, T *y) //swap by reference
 {
-	int t = *x;
+	T t = *x;
 	*x = *y;
 	*y = t;
 	return;
 }
 
-void selectSort(int arr[], int n) //function to select sort
+template<typename T>
+void selectSort(T arr[], int n) //function to select sort
 {
 	int i, j, minI;
 	for (i = 0; i < n - 1; i++)
@@ -33,7 +35,8 @@ void selectSort(int arr[], int n) //function to select sort
 	return;
 }
 
-void printArray(int a[], int n)
+template<typename T>
+void printArray(T a[], int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -43,22 +46,28 @@ void printArray(int a[], int n)
 	return;
 }
 
-int main()
+template<typename T> void driver()
 {
-	int *arr, n;
-	cout << "Enter the size of the array: ";
+	T *arr;
+	int n;
+	cout << "Enter the size of the integer array: ";
 	cin >> n;
-	arr = new int[n];
+	arr = new T[n];
 	cout << "Enter " << n << " numbers:\n";
 	for (int i = 0; i < n; i++)
 	{
 		cin >> arr[i];
 	}
-	cout << "The original array is ";
+	cout << "The original integer array is ";
 	printArray(arr, n);
 	selectSort(arr, n);
-	cout << "The sorted array is ";
+	cout << "The sorted integer array is ";
 	printArray(arr, n);
+}
+
+int main()
+{
+	driver();
     return 0;
 }
 
