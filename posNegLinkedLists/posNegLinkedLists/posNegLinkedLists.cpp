@@ -1,154 +1,198 @@
 #include"stdafx.h"
 #include<iostream>
+#define null NULL
 using namespace std;
 
 struct node
 {
-	int x;
+	float x;
 	node *next;
 };
 
-class lists
+class list
 {
 public:
-	node *head, *pHead, *nHead; //head pointers for the three lists
 
-	lists() //the default constructor
+	node *h, *p, *n, *s; //head pointers for the raw, positive, negative and the sorted lists
+
+	list()
 	{
-		head = pHead = nHead = NULL;
-		driver();
-	}
-
-	void driver();
-	void append();
-	void display(node *);
-	//node* stripNegatives(node *);
-	void sort();
-	void split();
-	void merge();
-};
-
-void lists::append()
-{
-	node *newNode = new node;
-	cout << "Enter the number: ";
-	cin >> newNode->x;
-	newNode->next = NULL;
-	if (head == NULL)
-		head = newNode;
-	else
-	{
-		node *t = head;
-		while (t->next != NULL)
+		int y = 1;
+		while (y != 0)
 		{
-			t = t->next;
-		}
-		t->next = newNode;
-	}
-	return;
-}
-
-void lists::display(node *h)
-{
-	node *t = h;
-	if (t == NULL)
-		cout << " is empty.\n";
-	else
-	{
-		while (t != NULL)
-		{
-			cout << t->x << " ";
-			t = t->next;
-		}
-		cout << endl;
-	}
-	return;
-}
-
-/*node* lists::stripNegatives(node *H)
-{
-	node *pos, *h = H;
-	pos = NULL;
-	node *newNode = new node;
-	newNode->next = NULL;
-	while (h != NULL)
-	{
-		if (h->x >= 0)
-		{
-			newNode->x = h->x;
-
-			if (pos == NULL)
+			cout << "Enter 1 to insert a number into the raw list\nEnter 2 to display the lists\nEnter 3 to remove negatives from the raw list\n";
+			cout << "Enter 4 to sort the raw list\nEnter 5 to split the list\nEnter 6 to merge the lists\n";
+			cin >> y;
+			switch (y)
 			{
-				pos = newNode;
+			case 1:
+				rawAppend();
+				break;
+			case 2:
+				display(h);
+				break;
+			case 3:
+				removeNeg();
+				break;
+			case 4:
+				sort();
+				break;
+			case 5:
+				split();
+				break;
+			case 6:
+				merge();
+				break;
+			case 0:
+				break;
+			default:
+				cout << "Invalid input.\n";
+				break;
+			}
+		}
+	}
+
+	void rawAppend()
+	{
+		//appends an element to the raw list
+		node *newnode = new node;
+		newnode->next = null;
+		cout << "Enter the element: ";
+		cin >> newnode->x;
+		if (h == null)
+		{
+			h = newnode;
+		}
+		else
+		{
+			newnode->next = h;
+			h = newnode;
+		}
+		return;
+	}
+
+	void signedAppend(int sign, float num)
+	{
+		//appends an element to the list specified by the sign variable
+		node *newnode = new node;
+		newnode->x = num;
+		newnode->next = null;
+		if (sign == 1) //append to the positive list
+		{
+			if (p == null)
+			{
+				p = newnode;
 			}
 			else
 			{
-				node *t = pos;
-				while (t->next != NULL)
+				newnode->next = p;
+				p = newnode;
+			}
+		}
+		else if (sign == -1) //append to the negative list
+		{
+			if (n == null)
+			{
+				n = newnode;
+			}
+			else
+			{
+				newnode->next = n;
+				n = newnode;
+			}
+		}
+		else if (sign == 0)
+		{
+			if (s == null)
+			{
+				s = newnode;
+			}
+			else
+			{
+				node *t = s;
+				while (t->next != null)
 				{
 					t = t->next;
 				}
-				t->next = newNode;
+				t->next = newnode;
 			}
 		}
-		h = h->next;
+		return;
 	}
-	return pos;
-}
-*/
 
-void lists::sort()
-{
-
-}
-
-void lists::split()
-{
-
-}
-
-void lists::merge()
-{
-
-}
-
-void lists::driver()
-{
-	int con = 1;
-	while (con != 0)
+	void sort()
 	{
-		cout << "Enter 1 to enter numbers into the raw list\n";
-		cout << "Enter 2 to display the raw list\n";
-		cout << "Enter 3 to remove the negative numbers from the raw list\n";
-		cout << "Enter 0 to quit\n";
-		cin >> con;
-		switch (con)
-		{
-		case 1:
-			append();
-			break;
 
-		case 2:
-			display(head);
-			break;
-
-		case 3:
-			head = stripNegatives(head);
-			break;
-
-		case 0:
-			break;
-
-		default:
-			cout << "Invalid input\n";
-			break;
-		}
 	}
-	return;
-}
 
+	void split()
+	{
+		node *t = h;
+		while (t != null)
+		{
+			if (t->x >= 0)
+			{
+				signedAppend(1, t->x);
+			}
+			else
+			{
+				signedAppend(-1, t->x);
+			}
+			t = t->next;
+		}
+		cout << "the lists have been split into positives and negatives.\n";
+		cout << "The positive list is: ";
+		display(p);
+		cout << "The negative list is: ";
+		display(n);
+		return;
+	}
+
+	void merge()
+	{
+		h = n;
+		node *t = h;
+		while(t->next != null)
+		{
+			t = t->next;
+		}
+		t->next = p;
+		return;
+	}
+
+	void removeNeg()
+	{
+		node *t = h;
+		while (t != null)
+		{
+			if (t->x >= 0)
+			{
+				signedAppend(1, t->x);
+			}
+			t = t->next;
+		}
+		h = p;
+		return;
+	}
+
+	void display(node **t)
+	{
+		if (t == null)
+			cout << " empty.\n";
+		else
+		{
+			while (t != null)
+			{
+				cout << t->x << " ";
+				t = t->next;
+			}
+			cout << endl;
+		}
+		return;
+	}
+};
 int main()
 {
-	lists l;
+	list x;
 	return 0;
 }

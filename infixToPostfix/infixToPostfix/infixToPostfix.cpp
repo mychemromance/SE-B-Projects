@@ -11,10 +11,14 @@ int getweight(char ch)
 {
 	switch (ch)
 	{
+	case '^':
+		return 3;
 	case '/':
+		return 2;
 	case '*':
 		return 2;
 	case '+':
+		return 1;
 	case '-':
 		return 1;
 	default:
@@ -55,7 +59,8 @@ void toPostfix(string infix, char postfix[])
 		w = getweight(ch);
 		if (w == 0)
 		{
-			postfix[k++] = ch;
+			postfix[k] = ch;
+			k++;
 		}
 		else
 		{

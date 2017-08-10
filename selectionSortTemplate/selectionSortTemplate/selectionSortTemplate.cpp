@@ -6,8 +6,7 @@
 #include<iostream>
 using namespace std;
 
-template<typename T>
-void swap(T *x, T *y) //swap by reference
+template<typename T> void swap(T *x, T *y) //swap by reference
 {
 	T t = *x;
 	*x = *y;
@@ -15,8 +14,7 @@ void swap(T *x, T *y) //swap by reference
 	return;
 }
 
-template<typename T>
-void selectSort(T arr[], int n) //function to select sort
+template<typename T> void selectSort(T arr[], int n) //function to select sort
 {
 	int i, j, minI;
 	for (i = 0; i < n - 1; i++)
@@ -35,8 +33,7 @@ void selectSort(T arr[], int n) //function to select sort
 	return;
 }
 
-template<typename T>
-void printArray(T a[], int n)
+template<typename T>void printArray(T a[], int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -46,11 +43,11 @@ void printArray(T a[], int n)
 	return;
 }
 
-template<typename T> void driver()
+template<typename T> void driver(T a)
 {
 	T *arr;
 	int n;
-	cout << "Enter the size of the integer array: ";
+	cout << "Enter the size of the array: ";
 	cin >> n;
 	arr = new T[n];
 	cout << "Enter " << n << " numbers:\n";
@@ -58,16 +55,20 @@ template<typename T> void driver()
 	{
 		cin >> arr[i];
 	}
-	cout << "The original integer array is ";
+	cout << "The original array is ";
 	printArray(arr, n);
 	selectSort(arr, n);
-	cout << "The sorted integer array is ";
+	cout << "The sorted array is ";
 	printArray(arr, n);
 }
 
 int main()
 {
-	driver();
+	cout << "Integer array...\n";
+	driver(1);
+	cout << endl;
+	cout << "Floating point array...\n";
+	driver(1.0);
     return 0;
 }
 
